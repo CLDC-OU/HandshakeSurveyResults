@@ -1,0 +1,15 @@
+{
+    "downloads_dir": "C:\\Users\\USER\\Downloads",
+    "handshake_url": "https://oakland.joinhandshake.com",
+    "chromedriver_path": "C:\\Users\\USER\\chromedriver-win64",
+    "surveys": [
+        {
+            "id": "12345",
+            "save_dir": "W:\\handshake_data\\survey_results",
+            "rename": [
+                {"replace_pattern": "surveyresponse_download", "replace_with": "12345_survey_results_"},
+                {"replace_pattern": "-.*", "replace_with": ".csv"}
+            ]
+        }
+    ]
+}
