@@ -1,5 +1,6 @@
 # HandshakeSurveyResults
- Automatically download individual Handshake (joinhandshake) survey results
+A script that automatically downloads individual Handshake (htps://joinhandshake.com) survey results, rename, and move them to a configured location.
+
 See [Setup](#setup) for the necessary setup for these scripts to run automatically.
 ## Setup
 
