@@ -2,6 +2,22 @@
 A script that automatically downloads individual Handshake (htps://joinhandshake.com) survey results, rename, and move them to a configured location.
 
 See [Setup](#setup) for the necessary setup for these scripts to run automatically.
+
+## Features
+
+- [x] Download Handshake surveys by survey id
+    - [x] Configurable for any number of surveys
+    - [x] Download for any subdomain (school) of Handshake
+    - [x] Configurable settings for each individual survey
+    - [ ] Configurable survey results by school/institution
+    - [ ] Download Handshake surveys from multiple accounts/Handshake subdomains (different schools) at once
+- [x] Log in using preconfigured information
+    - [x] Saved locally as environmental variables in a .env file
+    - [ ] Support for institutional Handshake login
+    - [x] Support for non-institutional Handshake login
+- [x] Rename survey files with regex replacement
+- [x] Move downloaded survey file to a specific location
+
 ## Setup
 
 1. Ensure all [dependencies](#dependencies) are configured and running properly
