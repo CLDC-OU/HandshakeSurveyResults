@@ -55,7 +55,7 @@ python -m pip install selenium
 
 See an example [Here](#example-env)
 
-> [!INFO]
+> [!IMPORTANT]
 > 
 > It is recommended that you create a dedicated Handshake account using an extra email address to access the survey results. Make sure to setup this Handshake account as a Career Services staff member with the "Surveys" Role.
 
