@@ -131,7 +131,7 @@ class SurveyResults():
     def _get_download(self):
         # Wait for the download to finish
 
-        max_wait_time = 120
+        max_wait_time = 300  # 5 minutes
         initial_files = set(os.listdir(self._config.getDownloadsDir()))
 
         # Periodically check the downloads directory for new files
