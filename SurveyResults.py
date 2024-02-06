@@ -17,14 +17,22 @@ class SurveyResults():
             logging.error("Invalid or incomplete config provided. Terminating execution.")
             return
         print(self._config.getSurveys())
+
+        logging.debug("Logging in...")
+        self._config.getWebdriver().get(
+            self._config.getURL()
+        )
+        self._wait = WebDriverWait(self._config.getWebdriver(), 10)
+        if self._config.is_institutional():
+            self._sso_login()
+        else:
+            self._non_sso_login()
+        logging.debug("Logged in")
         for survey in self._config.getSurveys():
             logging.debug(f"Loading survey " + survey._id)
             self._config.getWebdriver().get(survey.getURL(self._config.getURL()))
             self._wait = WebDriverWait(self._config.getWebdriver(), 10)
-            if self._config.is_institutional():
-                self._sso_login()
-            else:
-                self._non_sso_login()
+
             self._download_survey()
             downloaded_survey = self._get_download().pop()
             if not downloaded_survey:
