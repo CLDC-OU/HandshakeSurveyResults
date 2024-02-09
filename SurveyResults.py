@@ -8,13 +8,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class SurveyResults():
     def __init__(self):
         self._config = Config()
 
     def run(self):
         if self._config.isValid() is False:
-            logging.error("Invalid or incomplete config provided. Terminating execution.")
+            logging.error(
+                "Invalid or incomplete config provided. Terminating execution."
+            )
             return
         print(self._config.getSurveys())
 
@@ -29,18 +32,21 @@ class SurveyResults():
             self._non_sso_login()
         logging.debug("Logged in")
         for survey in self._config.getSurveys():
-            logging.debug(f"Loading survey " + survey._id)
-            self._config.getWebdriver().get(survey.getURL(self._config.getURL()))
+            logging.debug(f"Loading survey {survey._id}")
+            self._config.getWebdriver().get(
+                survey.getURL(self._config.getURL())
+            )
             self._wait = WebDriverWait(self._config.getWebdriver(), 10)
 
             self._download_survey()
             downloaded_survey = self._get_download().pop()
             if not downloaded_survey:
                 break
-            file_loc = survey.rename(downloaded_survey, self._config.getDownloadsDir())
+            file_loc = survey.rename(
+                downloaded_survey, self._config.getDownloadsDir())
             survey.move(file_loc)
         self._quit()
-        
+
     def _quit(self):
         self._config.getWebdriver().quit()
 
@@ -61,10 +67,11 @@ class SurveyResults():
 
         self._wait.until(
             EC.element_to_be_clickable(
-            (By.XPATH, "//*[contains(text(),'Next')]")
+                (By.XPATH, "//*[contains(text(),'Next')]")
             )
         )
-        username_field = self._config.getWebdriver().find_element(By.ID, 'non-sso-email-address')
+        username_field = self._config.getWebdriver(
+        ).find_element(By.ID, 'non-sso-email-address')
         username_field.send_keys(self._config.get_username())
         username_field.send_keys(Keys.RETURN)
 
@@ -75,7 +82,10 @@ class SurveyResults():
             )
         )
 
-        password_field = self._config.getWebdriver().find_element(By.ID, 'password')
+        password_field = self._config.getWebdriver().find_element(
+            By.ID,
+            'password'
+        )
         password_field.send_keys(os.getenv('HS_PASSWORD'))
 
         logging.debug('Entered login information')
@@ -83,27 +93,31 @@ class SurveyResults():
 
         self._wait.until(EC.url_contains('edu'))
         logging.debug('Logged in')
-    
+
     def _get_sso_login_btn(self) -> WebElement:
         return self._wait.until(
             EC.element_to_be_clickable(
                 (By.CLASS_NAME, "sso-button")
             )
         )
+
     def _get_non_sso_login_btn(self) -> WebElement:
 
         return self._wait.until(
             EC.element_to_be_clickable(
-                (By.XPATH, "//*[contains(text(),'sign in with your email address')]")
+                (By.XPATH,
+                 "//*[contains(text(),'sign in with your email address')]")
             )
         )
+
     def _get_non_sso_continue_btn(self) -> WebElement:
         return self._wait.until(
             EC.element_to_be_clickable(
-                (By.XPATH, "//*[contains(text(),'log in using your Handshake credentials')]")
+                (By.XPATH,
+                 "//*[contains(text(),'log in using your Handshake credentials')]")
             )
         )
-    
+
     def _get_download_btn(self) -> WebElement:
         return self._wait.until(
             EC.element_to_be_clickable(
@@ -115,7 +129,8 @@ class SurveyResults():
         self._wait = WebDriverWait(self._config.getWebdriver(), 180)
         return self._wait.until(
             EC.element_to_be_clickable(
-                (By.XPATH, "//*[contains(text(),'Your download is ready. Click here to retrieve the file.')]")
+                (By.XPATH,
+                 "//*[contains(text(),'Your download is ready. Click here to retrieve the file.')]")
             )
         )
 
@@ -124,7 +139,7 @@ class SurveyResults():
         logging.debug('Survey page loaded, download button clicked.')
 
         logging.debug('Waiting for download to be ready...')
-        
+
         self._get_download_ready_btn().click()
         logging.debug('Download prepared! downloading...')
 
